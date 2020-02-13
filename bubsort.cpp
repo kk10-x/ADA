@@ -1,4 +1,6 @@
 #include<iostream>
+#include<ctime>
+#include<cstdlib>
 using namespace std;
 void bubsort(int arr[],int n)
 {
@@ -31,11 +33,18 @@ int main()
 	int n;
 	cout<<"Enter the array size\n";
 	cin>>n;
-	cout<<"enter the array elements\n";
+	cout<<"the array elements\n";
 	int arr[n];
 	for(int i=0;i<n;i++)
-		cin>>arr[i];
+	{
+		int temp=rand()%10;
+		arr[i]=temp;
+	}
+	out(arr,n);
+	int pt=clock();
 	bubsort(arr,n);
+	pt=clock()-pt;
+	cout<<"\nthe process time is :"<<(float)pt/CLOCKS_PER_SEC<<"\n";
 	cout<<"the sorted array is"<<"\n";
 	out(arr,n);
 	cout<<"\n";
