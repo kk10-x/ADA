@@ -1,4 +1,6 @@
 #include<iostream>
+#include<ctime>
+#include<cstdlib>
 using namespace std;
 void selsort(int arr[],int n)
 {
@@ -28,9 +30,13 @@ int main()
 	cout<<"Enter the array elements\n";
 	for(int i=0;i<n;i++)
 		cin>>arr[i];
+	int pt=clock();
 	selsort(arr,n);
+	pt=clock()-pt;
+	cout<<"The sorted array is\n";
 	for(int i=0;i<n;i++)
 		cout<<arr[i]<<" ";
 	cout<<"\n";
+	cout<<"\nthe process time is :"<<(float)pt/CLOCKS_PER_SEC<<"\n";
 	return 0;
 }
