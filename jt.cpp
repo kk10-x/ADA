@@ -1,62 +1,131 @@
 #include <iostream>
 #include <vector>
- 
+//DONT 
+//DO IT
+//:"/
 using namespace std;
  
-vector<int> UpTo(int n, int offset = 0)
+vector<int> till(int n, int offset = 0)
 {
-	vector<int> retval(n);
-	for (int ii = 0; ii < n; ++ii)
-		retval[ii] = ii + offset;
-	return retval;
+	vector<int> baka(n);
+	for (int i= 0; i < n; ++i)
+		baka[i] = i + offset;
+	return baka;
 }
  
-struct JohnsonTrotterState_
+struct jt
 {
-	vector<int> values_;
-	vector<int> positions_;	
-	vector<bool> directions_;
+	vector<int> val;
+	vector<int> pos;	
+	vector<bool> dir; //its a diff "dir" ->direction
 	int sign_;
  
-	JohnsonTrotterState_(int n) : values_(UpTo(n, 1)), positions_(UpTo(n + 1, -1)), directions_(n + 1, false), sign_(1) {}
+	jt(int n) : val(till(n, 1)), pos(till(n + 1, -1)), dir(n + 1, false), sign_(1) {} //constructor fo the structure
  
-	int LargestMobile() const	
+	int LargestMobile() const //so that it doesnt erase the prev values 	
 	{
-		for (int r = values_.size(); r > 0; --r)
+		for (int r = val.size(); r > 0; --r)
 		{
-			const int loc = positions_[r] + (directions_[r] ? 1 : -1);
-			if (loc >= 0 && loc < values_.size() && values_[loc] < r)
+			const int loc = pos[r] + (dir[r] ? 1 : -1);
+			if (loc >= 0 && loc < val.size() && val[loc] < r)
 				return r;
 		}
 		return 0;
 	}
  
-	bool IsComplete() const { return LargestMobile() == 0; }
+	bool comp() const { return LargestMobile() == 0; } //checking is the limit has been reached
  
-	void operator++()	
+	void operator++() //operator modifiction....the way ++ works in the incrementation	
 	{
 		const int r = LargestMobile();
-		const int rLoc = positions_[r];
-		const int lLoc = rLoc + (directions_[r] ? 1 : -1);
-		const int l = values_[lLoc];
+		const int rLoc = pos[r];
+		const int lLoc = rLoc + (dir[r] ? 1 : -1);
+		const int l = val[lLoc];
 		// do the swap
-		swap(values_[lLoc], values_[rLoc]);
-		swap(positions_[l], positions_[r]);
+		swap(val[lLoc], val[rLoc]);
+		swap(pos[l], pos[r]);
 		sign_ = -sign_;
 		// change directions
-		for (auto pd = directions_.begin() + r + 1; pd != directions_.end(); ++pd)
+		for (auto pd = dir.begin() + r + 1; pd != dir.end(); ++pd)
+			*pd = !*pd;
+	}
+};
+ 
+int main(void)
+{#include <iostream>
+#include <vector>
+//DONT 
+//DO IT
+//:"/
+using namespace std;
+ 
+vector<int> till(int n, int offset = 0)
+{
+	vector<int> baka(n);
+	for (int i= 0; i < n; ++i)
+		baka[i] = i + offset;
+	return baka;
+}
+ 
+struct jt
+{
+	vector<int> val;
+	vector<int> pos;	
+	vector<bool> dir; //its a diff "dir" ->direction
+	int sign;
+ 
+	jt(int n) : val(till(n, 1)), pos(till(n + 1, -1)), dir(n + 1, false), sign(1) {} //constructor fo the structure
+ 
+	int LargestMobile() const //so that it doesnt erase the prev values 	
+	{
+		for (int r = val.size(); r > 0; --r)
+		{
+			const int loc = pos[r] + (dir[r] ? 1 : -1);
+			if (loc >= 0 && loc < val.size() && val[loc] < r)
+				return r;
+		}
+		return 0;
+	}
+ 
+	bool comp() const { return LargestMobile() == 0; } //checking is the limit has been reached
+ 
+	void operator++() //operator modifiction....the way ++ works in the incrementation	
+	{
+		const int r = LargestMobile();
+		const int rloc = pos[r];
+		const int lloc = rloc + (dir[r] ? 1 : -1);
+		const int l = val[lloc];
+		swap(val[lloc], val[rloc]);// swapping ....moving the numbers around
+		swap(pos[l], pos[r]);
+		sign = -sign;// change directions...the direction of the largest number
+		for (auto pd = dir.begin() + r + 1; pd != dir.end(); ++pd)
 			*pd = !*pd;
 	}
 };
  
 int main(void)
 {
-	JohnsonTrotterState_ state(4);
+	auto n=0;
+	cout<<"Enter the length of the permutation\n";
+	cin>>n;
+	jt state(n);
 	do
 	{
-		for (auto v : state.values_)
+		for (auto v : state.val)
 			cout << v << " ";
 		cout << "\n";
 		++state;
-	} while (!state.IsComplete());
+	} while (!state.comp());
+}
+	auto n=0;
+	cout<<"Enter the length of the permutation\n";
+	cin>>n;
+	jt state(n);
+	do
+	{
+		for (auto v : state.val)
+			cout << v << " ";
+		cout << "\n";
+		++state;
+	} while (!state.comp());
 }
