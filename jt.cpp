@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
 //DONT 
-//DO IT
-//:"/
+//FORK
+//:/
 using namespace std;
  
 vector<int> till(int n, int offset = 0)
