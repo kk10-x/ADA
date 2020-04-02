@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 using namespace std;
+//don't fork
 int min(int a,int b){return (a>b)?b:a;}
 vector<vector<int>> fw(vector<vector<int>> vec,int n)
 {
